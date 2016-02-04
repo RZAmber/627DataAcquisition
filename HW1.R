@@ -1,0 +1,35 @@
+##EE627 HW1 @RUI ZHANG
+getwd()
+setwd("~/SIT/2016S/627/627DataAcquisition/")
+file.choose()
+M=read.csv("~/SIT/2016S/627/week2/hw1/EE627A_HW1_Data.csv",header = TRUE)
+#1.form ths correlation marix between 5 time series(first 5 cols).
+cor(M[,2:6],M[,2:6])
+#the four-factor model(market-RF,SMB,HML,MOM) correlates with every industry
+Mkt_RF<-cor(M[,2],M[,7:36])
+SMB<-cor(M[,3],M[,7:36])
+HML<-cor(M[,4],M[,7:36])
+MOM<-cor(M[,6],M[,7:36])
+opar<-par(no.readonly = TRUE)
+x<-c(1,30)
+y<-c(-0.5,1.1)
+plot(x,y,type="n",xlab="Ind",ylab="Corr",main="Correlation between 4 factors and 30 industry")
+par(cex=0.5,lwd=1.5)
+lines(Mkt_RF[1,],type="b",col=1,pch=17)
+lines(SMB[1,],type="b",col=2,pch=2)
+lines(HML[1,],type="b",col=3,pch=20)
+lines(MOM[1,],type="b",col=4,pch=1)
+legend("topleft",inset=.05,title="Factor Type",c("M_R","SMB","HML","MOM"),pch=c(17,2,20,1),col=c(1,2,3,4))
+# the RF factor correlates with every industry
+RF<-cor(M[,5],M[,7:36])
+opar<-par(no.readonly = TRUE)
+x<-c(1,30)
+y<-c(-0.5,0.5)
+plot(x,y,type="n",xlab="Ind",ylab="Corr",main="Correlation between RF facotr and 30 industry")
+lines(RF[1,],type="b",col="red")
+#Form the auto-correlation function (ACF) for time-lag 1 to time-lag 
+lag<-10
+plot(acf(M[,2],lag.max = lag,plot = TRUE,na.action = no.fail),type = "b",main="Mkt_RF ACF")
+plot(acf(M[,3],lag.max = lag,plot = TRUE,na.action = no.fail),type = "b",main="SMB ACF")
+plot(acf(M[,4],lag.max = lag,plot = TRUE,na.action = no.fail),type = "b",main="HML ACF")
+plot(acf(M[,6],lag.max = lag,plot = TRUE,na.action = no.fail),type = "b",main="MOM ACF")
