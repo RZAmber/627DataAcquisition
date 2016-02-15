@@ -29,7 +29,11 @@ plot(x,y,type="n",xlab="Ind",ylab="Corr",main="Correlation between RF facotr and
 lines(RF[1,],type="b",col="red")
 #Form the auto-correlation function (ACF) for time-lag 1 to time-lag 
 lag<-10
-plot(acf(M[,2],lag.max = lag,plot = TRUE,na.action = no.fail),type = "b",main="Mkt_RF ACF")
-plot(acf(M[,3],lag.max = lag,plot = TRUE,na.action = no.fail),type = "b",main="SMB ACF")
-plot(acf(M[,4],lag.max = lag,plot = TRUE,na.action = no.fail),type = "b",main="HML ACF")
-plot(acf(M[,6],lag.max = lag,plot = TRUE,na.action = no.fail),type = "b",main="MOM ACF")
+acf(M[,2],lag.max=lag,plot=TRUE,main="Mkt_RF ACF")
+pacf(M[,2],lag.max=lag,plot=TRUE,main="Mkt_RF PACF")
+acf(M[,3],lag.max = lag,plot = TRUE,main="SMB ACF")
+pacf(M[,3],lag.max = lag,plot = TRUE,main="SMB PACF")
+acf(M[,4],lag.max = lag,plot = TRUE,main="HML ACF")
+pacf(M[,4],lag.max = lag,plot = TRUE,main="HML PACF")
+acf(M[,6],lag.max = lag,plot = TRUE,main="MOM ACF")
+pacf(M[,6],lag.max = lag,plot = TRUE,main="MOM PACF")
