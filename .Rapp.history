@@ -1,3 +1,7 @@
+aggregate(mtcars[vars],by=list(am=mtcars$am),mean)
+aggregate(mtcars[vars],by=list(am=mtcars$am),sd)
+dstats<-functions(x)(c(mean=mean(x),sd=sd(x)))
+dstats<-function(x)(c(mean=mean(x),sd=sd(x)))
 by(mycars[vars],mtcars$am,dstats)
 by(mtcars[vars],mtcars$am,dstats)
 install.packages("doBy")
@@ -198,60 +202,233 @@ setwd("~/SIT/2016S/627/627DataAcquisition/")
 file.choose()#
 Data3=read.csv("~/SIT/2016S/627/week/week4/hw2/Q3.csv",header = TRUE)
 a2<-ts(Data3) # creat time-series objects#
-plot(a2,xlab="time",ylab="data3",main="Data3")
-m1<-ar(Data3,method='mle')
-m1<-ar(Data3[,1],method='mle')
+par(mfrow=c(2,1))#
+plot(a2,xlab="time",ylab="data3",main="Data3",lwd=2) #
+dif<-a2[2:1250]-a2[1:1249] # make the difference 1, try to get stable data#
+plot(dif,xlab="time",ylab="dif",main="dif of data3",type='l',col='red')#
 lag<-100#
+par(mfrow=c(2,1))#
+dev.new() #creat new window to plot#
+acf(Data3[,1],lag.max=lag,plot=TRUE,main="Q3data ACF")#
+pacf(Data3[,1],lag.max=lag,plot=TRUE,main="Q3data PACF")
+a2<-ts(Data3) # creat time-series objects#
+par(mfrow=c(2,1))#
+plot(a2,xlab="time",ylab="data3",main="Data3",lwd=2) #
+dif<-a2[2:1250]-a2[1:1249] # make the difference 1, try to get stable data#
+plot(dif,xlab="time",ylab="dif",main="dif of data3",type='l',col='red')#
+lag<-100#
+dev.new() #creat new window to plot#
 par(mfrow=c(2,1))#
 acf(Data3[,1],lag.max=lag,plot=TRUE,main="Q3data ACF")#
 pacf(Data3[,1],lag.max=lag,plot=TRUE,main="Q3data PACF")
-m1<-ar(Data3[,1],method='mle')
-m1%order
-m1$order
-m1<-ar(a2,method='mle')
-m1$order
-m1<-ar(Data3,method='mle')
-m1$order
-g3<-arima(Data3,c(12,0,0))
-g3<-arima(Data3,c(12,1,0))
-acf(tt$residuals,mian="Data3 ACF Residuals")
-acf(g3$residuals,mian="Data3 ACF Residuals")
-g3<-arima(Data3,c(2,0,0))
-g3<-arima(Data3,c(8,0,0))
-g3<-arima(Data3,c(2,1,0))
-acf(g3$residuals,mian="Data3 ACF Residuals")
-t3<-arima(Data3,c(4,1,0))
-acf(g3$residuals,mian="Data3 ACF Residuals")
-t3<-arima(Data3,c(7,1,0))
-g3<-arima(Data3,c(0,0,10))
-acf(g3$residuals,mian="Data3 ACF Residuals")
-g3<-arima(Data3,c(9,1,0))
-acf(g3$residuals,mian="Data3 ACF Residuals")
-g3<-arima(Data3,c(9,1,1))
-acf(g3$residuals,mian="Data3 ACF Residuals")
-g3<-arima(Data3,c(9,1,4))
-acf(g3$residuals,mian="Data3 ACF Residuals")
-g3<-arima(Data3,c(4,1,3))
-acf(g3$residuals,mian="Data3 ACF Residuals")
-g3<-arima(Data3,c(3,1,3))
-acf(g3$residuals,mian="Data3 ACF Residuals")
-g3<-arima(Data3,c(3,1,2))
-acf(g3$residuals,mian="Data3 ACF Residuals")
-g3<-arima(Data3,c(7,1,3))
-acf(g3$residuals,mian="Data3 ACF Residuals")
-g3<-arima(Data3,c(12,1,3))
-acf(g3$residuals,mian="Data3 ACF Residuals")
-g3<-arima(Data3,c(12,1,1))
-acf(g3$residuals,mian="Data3 ACF Residuals")
-g3<-arima(Data3,c(12,1,2))
-acf(g3$residuals,mian="Data3 ACF Residuals")
-g3<-arima(Data3,c(12,1,3))
-acf(g3$residuals,mian="Data3 ACF Residuals")
-g3<-arima(Data3,c(10,1,3))
-acf(g3$residuals,mian="Data3 ACF Residuals")
-g3<-arima(Data3,c(11,1,3))
-acf(g3$residuals,mian="Data3 ACF Residuals")
-t3<-arima(Data3,c(11,1,3))
-acf(t3$residuals,mian="Data3 ACF Residuals")
-acf(t3$residuals,main="Data3 ACF Residuals")
-arima(Data3,order=c(11,0,3),method='ML')
+ar_fit<- ar(Data3[,1], order.max=2)#
+dev.new()#
+par(mfrow=c(1,2))#
+acf(ar_fit$resid[2:1250])#
+pacf(ar_fit$resid[2:1250])
+ar_fit<- ar(Data3[,1], order.max=2)#
+dev.new()#
+par(mfrow=c(2,1))#
+acf(ar_fit$resid[2:1250)#
+pacf(ar_fit$resid[2:1250])
+ar_fit<- ar(Data3[,1], order.max=2)#
+dev.new()#
+par(mfrow=c(2,1))#
+acf(ar_fit$resid[2:1249)#
+pacf(ar_fit$resid[2:1249])
+ar_fit<- ar(Data3[,1], order.max=2)#
+dev.new()#
+par(mfrow=c(2,1))#
+acf(ar_fit$resid[2:1249])#
+pacf(ar_fit$resid[2:1249])
+dev.new() #creat new window to plot#
+par(mfrow=c(2,1))#
+acf(dif[,1],lag.max=lag,plot=TRUE,main="Q3data ACF")#
+pacf(dif[,1],lag.max=lag,plot=TRUE,main="Q3data PACF")
+a2<-ts(Data3) # creat time-series objects#
+par(mfrow=c(2,1))#
+plot(a2,xlab="time",ylab="data3",main="Data3",lwd=2) #
+dd<-a2[2:1250]-a2[1:1249] # make the difference 1, try to get stable data#
+plot(dd,xlab="time",ylab="dif",main="dif of data3",type='l',col='red')#
+lag<-100#
+dev.new() #creat new window to plot#
+par(mfrow=c(2,1))#
+acf(Data3[,1],lag.max=lag,plot=TRUE,main="Q3data ACF")#
+pacf(Data3[,1],lag.max=lag,plot=TRUE,main="Q3data PACF")
+dev.new() #creat new window to plot#
+par(mfrow=c(2,1))
+acf(dd,lag.max=lag,plot=TRUE,main="Q3data ACF")#
+pacf(dd,lag.max=lag,plot=TRUE,main="Q3data PACF")
+a2<-ts(Data3) # creat time-series objects#
+par(mfrow=c(2,1))#
+plot(a2,xlab="time",ylab="data3",main="Data3",lwd=2) #
+dd<-a2[2:1250]-a2[1:1249] # make the difference 1, try to get stable data#
+plot(dd,xlab="time",ylab="dif",main="dif of data3",type='l',col='red')#
+lag<-100#
+dev.new() #creat new window to plot#
+par(mfrow=c(2,1))#
+acf(a2,lag.max=lag,plot=TRUE,main="Q3data ACF")#
+pacf(a2,lag.max=lag,plot=TRUE,main="Q3data PACF")
+acf(dd,lag.max=lag,plot=TRUE)
+acf(dd[2:1250],lag.max=lag,plot=TRUE)
+acf(dd[2:1249],lag.max=lag,plot=TRUE)
+dev.new()#
+t3<-arima(Data3,c(4,1,0)) #经过试验#
+par(mfrow=c(2,1))#
+acf(t3$residuals,mian="Data3 ACF Residuals")#
+pacf(t3$residuals,mian="Data3 PACF Residuals")
+dev.new()#
+t3<-arima(Data3,c(5,1,0)) #经过试验#
+par(mfrow=c(2,1))#
+acf(t3$residuals,mian="Data3 ACF Residuals")#
+pacf(t3$residuals,mian="Data3 PACF Residuals")
+dev.new()#
+t3<-arima(Data3,c(8,1,0)) #经过试验#
+par(mfrow=c(2,1))#
+acf(t3$residuals,mian="Data3 ACF Residuals")#
+pacf(t3$residuals,mian="Data3 PACF Residuals")
+dev.new()#
+t3<-arima(Data3,c(9,1,0)) #经过试验#
+par(mfrow=c(2,1))#
+acf(t3$residuals,mian="Data3 ACF Residuals")#
+pacf(t3$residuals,mian="Data3 PACF Residuals")
+dev.new()#
+t3<-arima(Data3,c(11,1,0)) #经过试验#
+par(mfrow=c(2,1))#
+acf(t3$residuals,mian="Data3 ACF Residuals")#
+pacf(t3$residuals,mian="Data3 PACF Residuals")
+dev.new()#
+t3<-arima(Data3,c(4,1,3)) #经过试验#
+par(mfrow=c(2,1))#
+acf(t3$residuals,mian="Data3 ACF Residuals")#
+pacf(t3$residuals,mian="Data3 PACF Residuals")
+dev.new()#
+t3<-arima(Data3,c(5,1,3)) #经过试验#
+par(mfrow=c(2,1))#
+acf(t3$residuals,mian="Data3 ACF Residuals")#
+pacf(t3$residuals,mian="Data3 PACF Residuals")
+dev.new()#
+t3<-arima(Data3,c(6,1,3)) #经过试验#
+par(mfrow=c(2,1))#
+acf(t3$residuals,mian="Data3 ACF Residuals")#
+pacf(t3$residuals,mian="Data3 PACF Residuals")
+dev.new()#
+t3<-arima(Data3,c(6,1,2)) #经过试验#
+par(mfrow=c(2,1))#
+acf(t3$residuals,mian="Data3 ACF Residuals")#
+pacf(t3$residuals,mian="Data3 PACF Residuals")
+dev.new()#
+t3<-arima(Data3,c(6,2,0)) #经过试验#
+par(mfrow=c(2,1))#
+acf(t3$residuals,mian="Data3 ACF Residuals")#
+pacf(t3$residuals,mian="Data3 PACF Residuals")
+dev.new()#
+t3<-arima(Data3,c1,2,0)) #经过试验#
+par(mfrow=c(2,1))#
+acf(t3$residuals,mian="Data3 ACF Residuals")#
+pacf(t3$residuals,mian="Data3 PACF Residuals")
+dev.new()#
+t3<-arima(Data3,c(11,2,0)) #经过试验#
+par(mfrow=c(2,1))#
+acf(t3$residuals,mian="Data3 ACF Residuals")#
+pacf(t3$residuals,mian="Data3 PACF Residuals")
+dev.new()#
+t3<-arima(Data3,c(4,1,3)) #经过试验#
+par(mfrow=c(2,1))#
+acf(t3$residuals,mian="Data3 ACF Residuals")#
+pacf(t3$residuals,mian="Data3 PACF Residuals")
+dev.new()#
+t3<-arima(Data3,c(6,1,3)) #经过试验#
+par(mfrow=c(2,1))#
+acf(t3$residuals,mian="Data3 ACF Residuals")#
+pacf(t3$residuals,mian="Data3 PACF Residuals")
+dev.new()#
+t3<-arima(Data3,c(5,1,3)) #经过试验#
+par(mfrow=c(2,1))#
+acf(t3$residuals,mian="Data3 ACF Residuals")#
+pacf(t3$residuals,mian="Data3 PACF Residuals")
+dev.new()#
+t3<-arima(Data3,c(4,1,3)) #经过试验#
+par(mfrow=c(2,1))#
+acf(t3$residuals,mian="Data3 ACF Residuals")#
+pacf(t3$residuals,mian="Data3 PACF Residuals")
+dev.new()#
+t3<-arima(Data3,c(5,1,3)) #经过试验#
+par(mfrow=c(2,1))#
+acf(t3$residuals,mian="Data3 ACF Residuals")#
+pacf(t3$residuals,mian="Data3 PACF Residuals")
+dev.new()#
+t3<-arima(Data3,c(4,1,2)) #经过试验#
+par(mfrow=c(2,1))#
+acf(t3$residuals,mian="Data3 ACF Residuals")#
+pacf(t3$residuals,mian="Data3 PACF Residuals")
+dev.new()#
+t3<-arima(Data3,c(4,1,1)) #经过试验#
+par(mfrow=c(2,1))#
+acf(t3$residuals,mian="Data3 ACF Residuals")#
+pacf(t3$residuals,mian="Data3 PACF Residuals")
+dev.new()#
+t3<-arima(Data3,c(4,1,2)) #经过试验#
+par(mfrow=c(2,1))#
+acf(t3$residuals,mian="Data3 ACF Residuals")#
+pacf(t3$residuals,mian="Data3 PACF Residuals")
+dev.new()#
+t3<-arima(Data3,c(4,1,4)) #经过试验#
+par(mfrow=c(2,1))#
+acf(t3$residuals,mian="Data3 ACF Residuals")#
+pacf(t3$residuals,mian="Data3 PACF Residuals")
+dev.new()#
+t3<-arima(Data3,c(4,1,2)) #经过试验#
+par(mfrow=c(2,1))#
+acf(t3$residuals,mian="Data3 ACF Residuals")#
+pacf(t3$residuals,mian="Data3 PACF Residuals")
+dev.new()#
+t3<-arima(Data3,c(4,1,2)) #经过试验#
+par(mfrow=c(2,1))#
+acf(t3$residuals,main="Data3 ACF Residuals")#
+pacf(t3$residuals,main="Data3 PACF Residuals")
+arima(Data3,order=c(4,1,2),method='ML')
+ar_fit<- ar(Data3, order.max=2)
+acf(ar_fit$resid[2:1250])
+acf(ar_fit$resid[2:1249])
+ar_fit<- ar(Data3, order.max=2)#
+dev.new()#
+par(mfrow=c(2,1))#
+acf(ar_fit$resid[2:1249],main="difference ACF")#
+pacf(ar_fit$resid[2:1249],main="difference PACF")
+ar_fit<- ar(Data3, order.max=3)#
+dev.new()#
+par(mfrow=c(2,1))#
+acf(ar_fit$resid[2:1249],main="difference ACF")#
+pacf(ar_fit$resid[2:1249],main="difference PACF")
+dev.new()
+ar_fit<- ar(Data3, order.max=3)#
+dev.new()#
+par(mfrow=c(2,1))#
+acf(ar_fit$resid[2:1249],main="difference ACF")#
+pacf(ar_fit$resid[2:1249],main="difference PACF")
+ar_fit<- ar(Data3, order.max=1)#
+dev.new()#
+par(mfrow=c(2,1))#
+acf(ar_fit$resid[2:1249],main="difference ACF")#
+pacf(ar_fit$resid[2:1249],main="difference PACF")
+ar_fit<- ar(Data3, order.max=1)#
+dev.new()#
+par(mfrow=c(2,1))#
+acf(ar_fit$resid[2:1250],main="difference ACF")#
+pacf(ar_fit$resid[2:1250],main="difference PACF")
+ar_fit<- ar(Data3, order.max=1)#
+dev.new()#
+par(mfrow=c(2,1))#
+acf(ar_fit$resid[1:1249],main="difference ACF")#
+pacf(ar_fit$resid[1:1249],main="difference PACF")
+ar_fit<- ar(Data3, order.max=1)#
+dev.new()#
+par(mfrow=c(2,1))#
+acf(ar_fit$resid[2:1249],main="difference ACF")#
+pacf(ar_fit$resid[2:1249],main="difference PACF")
+ar_fit<- ar(Data3, order.max=2)#
+dev.new()#
+par(mfrow=c(2,1))#
+acf(ar_fit$resid[2:1249],main="difference ACF")#
+pacf(ar_fit$resid[2:1249],main="difference PACF")

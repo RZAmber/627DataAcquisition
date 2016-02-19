@@ -29,14 +29,27 @@ arima(Data2,order=c(0,0,3),method='ML')
 file.choose()
 Data3=read.csv("~/SIT/2016S/627/week/week4/hw2/Q3.csv",header = TRUE)
 a2<-ts(Data3) # creat time-series objects
-plot(a2,xlab="time",ylab="data3",main="Data3") 
+par(mfrow=c(2,1))
+plot(a2,xlab="time",ylab="data3",main="Data3",lwd=2) 
+dd<-a2[2:1250]-a2[1:1249] # make the difference 1, try to get stable data
+plot(dd,xlab="time",ylab="dif",main="dif of data3",type='l',col='red')
 lag<-100
+dev.new() #creat new window to plot
 par(mfrow=c(2,1))
 acf(Data3[,1],lag.max=lag,plot=TRUE,main="Q3data ACF")
-pacf(Data3[,1],lag.max=lag,plot=TRUE,main="Q3data PACF")
 
-#Q3 residuals
-t3<-arima(Data3,c(11,1,3)) #经过试验
-acf(t3$residuals,mian="Data3 ACF Residuals")
+#check the difference
+ar_fit<- ar(Data3, order.max=2)
+dev.new()
+par(mfrow=c(2,1))
+acf(ar_fit$resid[2:1249],main="difference ACF")
+pacf(ar_fit$resid[2:1249],main="difference PACF")	
+
+#Q3 residualsd
+dev.new()
+t3<-arima(Data3,c(4,1,2)) #经过试验
+par(mfrow=c(2,1))
+acf(t3$residuals,main="Data3 ACF Residuals")
+pacf(t3$residuals,main="Data3 PACF Residuals")
 # get cofficients
-arima(Data3,order=c(11,0,3),method='ML')
+arima(Data3,order=c(4,1,2),method='ML')
