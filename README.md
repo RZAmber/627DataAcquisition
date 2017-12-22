@@ -1,3 +1,3 @@
 # 627DataAcquisition
-##This is class material.
-end
+## This is class material. end
+
